@@ -29,6 +29,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.ArcTo;
 import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -55,7 +56,7 @@ public class BlackJackController implements Initializable {
 	private HBox hboxP2Cards;
 	@FXML
 	private HBox hboxCommunity;
-
+	
 	@FXML
 	private Label lblNameP1;
 	@FXML
@@ -363,18 +364,24 @@ public class BlackJackController implements Initializable {
 
 	private PathTransition CreatePathTransition(Point2D fromPoint, Point2D toPoint, ImageView img) {
 		Path path = new Path();
+		ArcTo arc = new ArcTo();
+		arc.setX(10);
+		arc.setY(-10);
+		arc.setRadiusX(10);
+		arc.setRadiusY(10);
 
 		// TODO: Fix the Path transition. My Path looks terrible... do something cool :)
 
 		path.getElements().add(new MoveTo(fromPoint.getX(), fromPoint.getY()));
-		path.getElements().add(new CubicCurveTo(toPoint.getX() * 2, toPoint.getY() * 2, toPoint.getX() / 3,
-				toPoint.getY() / 3, toPoint.getX(), toPoint.getY()));
-		// path.getElements().add(new CubicCurveTo(0, 120, 0, 240, 380, 240));
+		//path.getElements().add(new CubicCurveTo(toPoint.getX() * 2, toPoint.getY() * 2, toPoint.getX() / 3,
+				//toPoint.getY() / 3, toPoint.getX(), toPoint.getY()));
+		//path.getElements().add(arc);
+		path.getElements().add(new CubicCurveTo(10, 120, 0, 240, 380, 240));
 		PathTransition pathTransition = new PathTransition();
 		pathTransition.setDuration(Duration.millis(750));
 		pathTransition.setPath(path);
 		pathTransition.setNode(img);
-		pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+		pathTransition.setOrientation(PathTransition.OrientationType.NONE);
 		pathTransition.setCycleCount((int) 1f);
 		pathTransition.setAutoReverse(false);
 
